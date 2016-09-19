@@ -27,7 +27,7 @@ const FILE = {
   lifecycleMethods: [
     METHOD
   ],
-  localStatePARAMs: [
+  localStateParams: [
     PARAM
   ]
 };

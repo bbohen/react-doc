@@ -1,4 +1,4 @@
-// TODO: refactor / modularize
+// TODO: this code ain't so pretty - refactor / modularize
 
 const fs = require('fs');
 const param = require('./param');
@@ -10,34 +10,22 @@ const SUPPORTED_LIFECYCLE_EVENTS = [
   'componentWillReceiveProps'
 ];
 
-const lineContains = (ln) => {
-  let matchingEvent = '';
-  SUPPORTED_LIFECYCLE_EVENTS.forEach((event) => {
-    if (ln.includes(event)) {
-      matchingEvent = event;
-      return;
-    }
-  });
-  return matchingEvent;
-};
-
 module.exports = function readFile(file) {
   return new Promise((resolve, reject) => {
     fs.readFile(file, { encoding: 'utf-8' }, (err, data) => {
       if (err) {
         reject(err);
+        return;
       }
 
       const loc = data.split('\n');
-      let captureLine = false;
       const parsedComments = {};
-      let trimmedLine = '';
+      let captureLine = false;
       let blockEndedAt;
-      let isInlineComment;
 
       loc.forEach((line, index) => {
-        trimmedLine = line.trim();
-        isInlineComment = trimmedLine.startsWith('//');
+        const trimmedLine = line.trim();
+        const isInlineComment = trimmedLine.startsWith('//');
 
         /**
          * Grab multiline comments
@@ -69,11 +57,12 @@ module.exports = function readFile(file) {
           // check lifecycles
           // TODO: check if this line is a function
           if (new RegExp(SUPPORTED_LIFECYCLE_EVENTS.join('|')).test(trimmedLine)) {
-            const matchingLifeCycleEvent = lineContains(trimmedLine);
+            const matchingLifeCycleEvent = SUPPORTED_LIFECYCLE_EVENTS.find(event => line.includes(event));
 
             parsedComments[matchingLifeCycleEvent] = parsedComments[
               Object.keys(parsedComments).length - 1
             ];
+
             delete parsedComments[Object.keys(parsedComments).length - 2];
           }
 
@@ -92,11 +81,11 @@ module.exports = function readFile(file) {
           }
         }
 
-
         if (index === loc.length - 1) {
           resolve({
             comments: parsedComments,
             name: file.match(/[^\\/]+$/)[0],
+            react: false,
             path: file
           });
         }
