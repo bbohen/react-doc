@@ -1,0 +1,36 @@
+{
+  "name": "react-doc",
+  "version": "0.1.0",
+  "description": "Creates easy to read documents from your react project",
+  "main": "src/index.js",
+  "bin": {
+    "react-doc": "src/index.js"
+  },
+  "scripts": {
+    "lint": "eslint src --ext .js --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Brad Bohen",
+  "license": "ISC",
+  "dependencies": {
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "babylon": "^6.9.1",
+    "chalk": "^1.1.3",
+    "file": "^0.2.2",
+    "html-webpack-plugin": "^2.22.0",
+    "json-loader": "^0.5.4",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "walk": "^2.3.9",
+    "webpack": "^1.13.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^11.1.0",
+    "eslint-plugin-import": "^1.15.0",
+    "eslint-plugin-jsx-a11y": "^2.2.2",
+    "eslint-plugin-react": "^6.2.2"
+  }
+}

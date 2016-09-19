@@ -1,0 +1,14 @@
+coverage/
+dist/
+docs/
+.idea/
+node_modules/
+static/dist/
+.tmp/
+www/
+www.zip
+*.iml
+webpack-assets.json
+webpack-stats.json
+npm-debug.log
+*.DS_Store
