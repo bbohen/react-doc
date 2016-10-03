@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import File from '../src/client/components/File';
 
 it('renders a File component', () => {
-  // Render a checkbox with label in the document
+  // Render a file component
   const props = {
     comments: [
       {
