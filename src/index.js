@@ -5,6 +5,7 @@ const walk = require('walk');
 const webpack = require('webpack');
 const chalk = require('chalk');
 const program = require('commander');
+const open = require('open');
 
 const docodile = require('./parser/docodile');
 const createWebpackConfig = require('./client/createWebpackConfig');
@@ -39,6 +40,7 @@ function createBundle() {
     } else {
         // console.log(stats);
       console.log(chalk.green('webpack build complete'));
+      open('./react-doc/index.html');
     }
   });
 }

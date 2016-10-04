@@ -8,7 +8,6 @@ This is an active (but early) WIP, to play around with it right now you would ne
 - `cd react-doc`
 - `npm link`
 - `react-doc` in your react project directory
-- `cd react-doc && open index.html` in your react project directory
 
 By default react-doc will ignore `.git, node_modules & the resulting react-doc folder itself` if you want to ignore additional directories you can pass the `ignore` param
 

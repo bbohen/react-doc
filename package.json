@@ -25,6 +25,7 @@
     "file": "^0.2.2",
     "html-webpack-plugin": "^2.22.0",
     "json-loader": "^0.5.4",
+    "open": "0.0.5",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "walk": "^2.3.9",
