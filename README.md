@@ -10,7 +10,9 @@ This is an active (but early) WIP, to play around with it right now you would ne
 - `react-doc` in your react project directory
 - `cd react-doc && open index.html` in your react project directory
 
-By default react-doc will ignore `.git, node_modules & the resulting react-doc folder itself`
+By default react-doc will ignore `.git, node_modules & the resulting react-doc folder itself` if you want to ignore additional directories you can pass the `ignore` param
+
+Example: `react-doc --ignore /someDirectory ` or `react-doc --i /someDirectory /someOtherDirectory`
 
 Run tests using Jest:
 
