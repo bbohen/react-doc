@@ -21,11 +21,17 @@ module.exports = function readFile(file) {
       const loc = data.split('\n');
       const parsedComments = {};
       let captureLine = false;
+      let isReact = false;
       let blockEndedAt;
 
       loc.forEach((line, index) => {
         const trimmedLine = line.trim();
+        const noSpaceLine = trimmedLine.replace(/\s+/g, '');
         const isInlineComment = trimmedLine.startsWith('//');
+
+        if (!isReact) {
+          isReact = !!['require(react)', "from'react'", "importReactfrom'react'"].find(moduleImport => noSpaceLine.includes(moduleImport));
+        }
 
         /**
          * Grab multiline comments
@@ -74,7 +80,7 @@ module.exports = function readFile(file) {
           }
 
           // local state docs
-          if (trimmedLine.includes('this.state = {')) {
+          if (noSpaceLine.includes('this.state={')) {
             // create a propTypes entry
             parsedComments.stateTypes = parsedComments[Object.keys(parsedComments).length - 1];
             delete parsedComments[Object.keys(parsedComments).length - 2];
@@ -85,7 +91,7 @@ module.exports = function readFile(file) {
           resolve({
             comments: parsedComments,
             name: file.match(/[^\\/]+$/)[0],
-            react: false,
+            isReact,
             path: file
           });
         }
