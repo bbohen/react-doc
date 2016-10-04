@@ -2,8 +2,10 @@ import React from 'react';
 import {mount} from 'enzyme';
 import File from '../src/client/components/File';
 
+/**
+ * Renders a File Component
+ */
 it('renders a File component', () => {
-  // Render a file component
   const props = {
     comments: [
       {
