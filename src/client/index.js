@@ -5,11 +5,16 @@ const docData = require(`${PROJECT}/react-doc/docs.json`);
 const File = require('./components/File');
 
 const ReactDoc = (props) => {
+  console.log(props.docs);
+
+  const filesToDisplay = props.docs.map((file) => {
+    return file.isReact ? <File {...file} /> : undefined;
+  });
+
   return (
     <div>
-      {props.docs.map(file =>
-        <File {...file} />
-      )}
+      <h1>React-doc</h1>
+      {filesToDisplay}
     </div>
   );
 };

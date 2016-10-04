@@ -4,18 +4,17 @@ const File = (props) => {
   const { comments = {}, name = {} } = props;
   const propTypeDisplay = comments.propTypes ? comments.propTypes.map((property) => {
     return (
-      <div>
-        <h2>{property.name}</h2>
-        <h3>Type: {property.paramType}</h3>
-        <p>{property.description}</p>
-      </div>
+      <li>{property.name} - Type: {property.paramType} - {property.description}</li>
     );
   }) : undefined;
 
   return (
     <div>
       <h1>{name}</h1>
-      {propTypeDisplay}
+      <h2>PropTypes:</h2>
+      <ul>
+        {propTypeDisplay}
+      </ul>
     </div>
     );
 };

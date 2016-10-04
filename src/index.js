@@ -1,27 +1,10 @@
 #!/usr/bin/env node
 
-// TODO: BEFORE OPEN
-// - refactor & reduce amount of neccesary callbacks
-// - identify react components
-// - state types
-// - create basic ui and lifecycle method support
-// - styles
-// TODO: OPEN GH - make rest GH issues
-// - just use babylon?
-// - add debug mode, should have benchmarks for parsing comparisons
-// - tests (jest?)
-//
-// - eventual commands
-//    - create
-//    - read
-//    - update
-//    - delete
-//
-
 const fs = require('fs');
 const walk = require('walk');
 const webpack = require('webpack');
 const chalk = require('chalk');
+const program = require('commander');
 
 const docodile = require('./parser/docodile');
 const createWebpackConfig = require('./client/createWebpackConfig');
@@ -30,19 +13,32 @@ const webpackConfig = createWebpackConfig();
 const compiler = webpack(webpackConfig);
 const filePaths = [];
 
+program
+  .option('-i, --ignore <value>', 'Ignore routes', val => val.split(','))
+  .parse(process.argv);
+
+const walkOptions = {
+  followLinks: false,
+  filters: [
+    '.git',
+    'node_modules',
+    'react-doc',
+    ...(program.ignore || [])
+  ]
+};
+
 // recursively walk supplied directory
-// TODO: must be more dynamic that ./src
-const walker = walk.walk('./src', { followLinks: false });
-console.log(`walking ./src directory at ${chalk.yellow(process.cwd())}`);
+const walker = walk.walk('./', walkOptions);
+console.log(`walking at ${chalk.yellow(process.cwd())}/`);
 
 // create client side webpack bundle
 function createBundle() {
   compiler.run((err) => {
     if (err) {
-      console.log(chalk.red('webpack build failed!'));
+      console.log(chalk.red('webpack build failed'));
     } else {
         // console.log(stats);
-      console.log(chalk.green('webpack build complete!'));
+      console.log(chalk.green('webpack build complete'));
     }
   });
 }
