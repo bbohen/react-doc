@@ -29,7 +29,7 @@ const walkOptions = {
     ...(program.ignore || [])
   ]
 };
-console.log(directoryToWalk);
+
 const walker = walk.walk(directoryToWalk, walkOptions);
 console.log(`walking at ${chalk.yellow(process.cwd())}/`);
 
@@ -57,7 +57,7 @@ fs.mkdir('./react-doc', (err) => {
       console.log(chalk.red('couldnt create react-doc directory'));
     }
   } else {
-      // created directory
+    // created directory
     console.log(chalk.green('react-doc dir created'));
   }
 });

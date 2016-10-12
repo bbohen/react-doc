@@ -8,7 +8,10 @@ module.exports = function parser(files) {
   return files.reduce((prior, filePath) => {
     return prior.then(() => {
       return parseFile(filePath).then((result) => {
-        results.push(result);
+        if (result.isReact) {
+          results.push(result);
+        }
+
         return results;
       });
     });

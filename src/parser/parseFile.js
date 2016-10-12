@@ -30,8 +30,8 @@ module.exports = function parseFile(fileToParse) {
             isReact = true;
           }
 
-          if (props.declaration && (props.declaration.type === 'ClassDeclaration')) {
-            name = props.declaration.id.name;
+          if (props.type === 'ExportDefaultDeclaration' && (props.declaration.type === 'ClassDeclaration' || props.declaration.type === 'Identifier')) {
+            name = props.declaration.id ? props.declaration.id.name : props.declaration.name;
           }
         }
       }
