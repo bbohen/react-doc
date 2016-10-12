@@ -7,7 +7,7 @@ const chalk = require('chalk');
 const program = require('commander');
 const open = require('open');
 
-const docodile = require('./parser/docodile');
+const parser = require('./parser');
 const createWebpackConfig = require('./client/createWebpackConfig');
 
 const webpackConfig = createWebpackConfig();
@@ -18,6 +18,8 @@ program
   .option('-i, --ignore <value>', 'Ignore routes', val => val.split(','))
   .parse(process.argv);
 
+// recursively walk supplied directory
+const directoryToWalk = program.args[0] || './';
 const walkOptions = {
   followLinks: false,
   filters: [
@@ -28,8 +30,7 @@ const walkOptions = {
   ]
 };
 
-// recursively walk supplied directory
-const walker = walk.walk('./', walkOptions);
+const walker = walk.walk(directoryToWalk, walkOptions);
 console.log(`walking at ${chalk.yellow(process.cwd())}/`);
 
 // create client side webpack bundle
@@ -56,7 +57,7 @@ fs.mkdir('./react-doc', (err) => {
       console.log(chalk.red('couldnt create react-doc directory'));
     }
   } else {
-      // created directory
+    // created directory
     console.log(chalk.green('react-doc dir created'));
   }
 });
@@ -76,8 +77,7 @@ walker.on('file', (root, stat, next) => {
 walker.on('end', () => {
   const files = Object.prototype.toString.call(filePaths) === '[object Array]' ? filePaths : [filePaths];
 
-  docodile(files).then((results) => {
-    // webpack
+  parser(files).then((results) => {
     console.log(chalk.green(`${filePaths.length} files parsed!`));
     fs.writeFile('./react-doc/docs.json', JSON.stringify(results), (err) => {
       if (err) {
