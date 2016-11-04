@@ -1,17 +1,17 @@
 const React = require('react');
 
 const File = (props) => {
-  const { comments = {}, name = {} } = props;
-  const propTypeDisplay = comments.propTypes ? comments.propTypes.map((property) => {
+  const { componentProps, filename, name = {} } = props;
+  const propTypeDisplay = componentProps ? componentProps.map((property) => {
     return (
-      <li>{property.name} - Type: {property.paramType} - {property.description}</li>
+      <li>{property.name} - {property.type}</li>
     );
   }) : undefined;
 
   return (
     <div>
-      <h1>{name}</h1>
-      <h2>PropTypes:</h2>
+      <h3>{name}</h3>
+      <h4>{filename}</h4>
       <ul>
         {propTypeDisplay}
       </ul>
@@ -20,7 +20,8 @@ const File = (props) => {
 };
 
 File.propTypes = {
-  comments: React.PropTypes.array,
+  componentProps: React.PropTypes.array,
+  filename: React.PropTypes.string,
   name: React.PropTypes.string
 };
 
