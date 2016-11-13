@@ -2,9 +2,9 @@ const React = require('react');
 
 const File = (props) => {
   const { componentProps, filename, name = {} } = props;
-  const propTypeDisplay = componentProps ? componentProps.map((property) => {
+  const propTypeDisplay = componentProps ? componentProps.map((property, index) => {
     return (
-      <li>{property.name} - {property.type}</li>
+      <li key={`prop${index}`}>{property.name} - {property.type}</li>
     );
   }) : undefined;
 
