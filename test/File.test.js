@@ -8,8 +8,11 @@ import File from '../src/client/components/File';
 it('renders a File component and displays the name', () => {
   const props = {
     componentProps: [
-      {name: 'name'},
-      {type: 'type'}],
+      {
+        name: 'name',
+        type: 'type'
+      }
+    ],
     filename: 'filename',
     name: 'name'
   };
@@ -24,8 +27,10 @@ it('renders a File component and displays the name', () => {
 it('renders a File component and displays the filename', () => {
   const props = {
     componentProps: [
-      {name: 'name'},
-      {type: 'type'}
+      {
+        name: 'name',
+        type: 'type'
+      }
     ],
     filename: 'filename',
     name: 'name'
@@ -44,7 +49,8 @@ it('renders a File component and displays component props name and type', () => 
       {
         name: 'name',
         type: 'type'
-      }],
+      }
+    ],
     filename: 'filename',
     name: 'name'
   };
