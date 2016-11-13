@@ -25,7 +25,8 @@ it('renders a File component and displays the filename', () => {
   const props = {
     componentProps: [
       {name: 'name'},
-      {type: 'type'}],
+      {type: 'type'}
+    ],
     filename: 'filename',
     name: 'name'
   };
